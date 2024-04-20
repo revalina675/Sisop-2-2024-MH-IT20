@@ -1,60 +1,19 @@
-include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
+#include <fcntl.h>
+#include <errno.h>
 #include <unistd.h>
-#include <dirent.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
 #include <syslog.h>
-#include <time.h>
-#include <signal.h>
+#include <string.h>
+#include <sys/wait.h>
 #include <dirent.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
 
-void rot19_decrypt(char *str) {
-    for (int i = 0; str[i]; i++) {
-        if (isalpha(str[i])) {
-            char base = isupper(str[i]) ? 'A' : 'a';
-            str[i] = (str[i] - base - 19 + 26) % 26 + base;
-        }
-    }
-}
-
-void decrypt_and_rename_files(const char *directory) {
-    struct dirent *entry;
-    DIR *dir = opendir(directory);
-    if (dir == NULL) {
-        perror("opendir");
-        return;
-    }
-
-    while ((entry = readdir(dir)) != NULL) {
-        if (entry->d_type == DT_REG) { // Check if it's a regular file
-            char old_name[PATH_MAX];
-            char new_name[PATH_MAX];
-
-            // Construct the full path to the file
-            snprintf(old_name, sizeof(old_name), "%s/%s", directory, entry->d_name);
-
-            // Decrypt the file name
-            strncpy(new_name, entry->d_name, sizeof(new_name));
-            rot19_decrypt(new_name);
-
-            // Rename the file
-            char rename_path[PATH_MAX];
-            snprintf(rename_path, sizeof(rename_path), "%s/%s", directory, new_name);
-            if (rename(old_name, rename_path) != 0) {
-                perror("rename");
-           }
-        }
-    }
-
-    closedir(dir);
-}
+void download_file();
+void unzip_file();
+void rot19_decrypt();
+void decrypt_file();
 
 int main() {
   pid_t pid, sid;        // Variabel untuk menyimpan PID
@@ -87,41 +46,102 @@ int main() {
   close(STDIN_FILENO);
   close(STDOUT_FILENO);
   close(STDERR_FILENO);
-    // URL untuk file yang akan diunduh
-    const char *url = "https://drive.google.com/uc?export=download&id=1rUIZmp10lXLtCIH3LAZJzRPeRks3Crup";
-    
-    // File untuk menyimpan hasil unduhan
-    const char *filename = "library.zip";
 
-    // Fork proses baru
-    pid = fork();
+  while (1) {
+    // Tulis program kalian di sini
+    download_file();
+    unzip_file();
+    decrypt_file();
 
-    if (pid == -1) {
-        // Gagal melakukan fork
-        perror("fork");
-        return 1;
- } else if (pid == 0) {
-        // Ini adalah proses anak
-        // Lakukan unduhan dengan wget
-        execlp("wget", "wget", "-O", filename, url, NULL);
-        // Jika execv gagal, keluar dengan kode error
-        perror("execv");
-        return 1;
-    } else {
-        // Ini adalah proses induk
-        // Tunggu hingga proses anak selesai
+    sleep(30);
+  }
+}
+
+void download_file() 
+{
+    pid_t child_id = fork();
+
+    char download_path[1000] = "/home/revalina/m2s2";
+    if (child_id < 0) {
+    exit(EXIT_FAILURE); // Jika gagal membuat proses baru, program akan berhenti
+  }
+
+  if (child_id == 0) {
+    // this is child
+        char *cmd = "/bin/wget";
+        char *argv[7] = { "wget", "--content-disposition", "--no-check-certificate", "https://drive.google.com/uc?export=download&id=1rUIZmp10lXLtCIH3LAZJzRPeRks3Crup", "-P", download_path, NULL };
+        execv(cmd, argv);
+  } else {
+    // this is parent
+
         int status;
-        waitpid(pid, &status, 0);
+        wait(&status);
+  }
+}
 
-        // Periksa status keluaran proses anak
-        if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
-            // Ekstrak file ZIP
-            execlp("unzip", "unzip", filename, NULL);
+void unzip_file() 
+{
+    pid_t child_id = fork();
+
+    char download_path[1000] = "/home/revalina/m2s2/library.zip";
+    if (child_id < 0) {
+    exit(EXIT_FAILURE); // Jika gagal membuat proses baru, program akan berhenti
+  }
+
+  if (child_id == 0) {
+    // this is child
+        char *cmd = "/bin/unzip";
+        char *argv[5] = { "unzip", "/home/revalina/m2s2/library.zip", "-d", "/home/revalina/m2s2", NULL };
+        execv(cmd, argv);
+  } else {
+    // this is parent
+
+        int status;
+        wait(&status);
+  }
+}
+
+void rot19_decrypt(char *str) {
+    for (int i = 0; str[i]; i++) {
+        if (str[i] >= 'a' && str[i] <= 'z') {
+            str[i] = (str[i] - 'a' - 19 + 26) % 26 + 'a';
+        } else if (str[i] >= 'A' && str[i] <= 'Z') {
+            str[i] = (str[i] - 'A' - 19 + 26) % 26 + 'A';
+        }
+    }
+}
+
+void decrypt_file(){
+    pid_t pid = fork();
+
+    if (pid < 0) exit(EXIT_FAILURE);
+
+    else if (pid == 0)
+    {
+        DIR *dir;
+        struct dirent *ent;
+        if ((dir = opendir("/home/revalina/m2s2/library")) != NULL) {
+            while ((ent = readdir(dir)) != NULL) {
+                // Cek apakah file adalah file teratas 6 dan bukan direktori
+                if (ent->d_type == DT_REG && strlen(ent->d_name) > 6) {
+                    char new_name[256];
+                    strcpy(new_name, ent->d_name);
+                    rot19_decrypt(new_name);
+                    printf("Rename %s to %s\n", ent->d_name, new_name);
+                    // Ganti nama file di sini
+                    rename(ent->d_name, new_name);
+                }
+            }
+            closedir(dir);
         } else {
-            printf("Gagal mengunduh file\n");
+            perror("Could not open directory");
+            exit(EXIT_FAILURE);
         }
     }
 
-    return 0;
+    else
+    {
+        int status;
+        wait(&status);
+    }
 }
-
