@@ -22,17 +22,19 @@ int main(int argc, char *argv[])
 
      for (int i = 2; i < argc; i += 2) {    //dilakukan looping untuk aplikasi dan jumlah window
        int num_windows = atoi(argv[i + 1]);  //convert jumlah window menjadi integer
-       for (int j = 0; j < num_windows; j++) {  //looping sebanyak window yang diinput
+       for (int j = 0; j < num_windows; j++) {  //looping sebanyak window yang diinputkan user
         child_pid = fork();                     //buat fork untuk child process
+            
         if (child_pid == 0) {                   //cek kondisi jika berada pada child process
           if (strcmp(argv[i], "libreoffice") == 0) {   //pastikan aplikasi adalah libreoffice
             execlp("libreoffice", "libreoffice", "--calc", NULL);  //run libreoffice calc
           } else if (strcmp(argv[i], "firefox") == 0) {            //pastikan aplikasi merupakan firefox
-            execlp("firefox", "firefox", NULL);                    //run firefox
+            execlp("firefox", "firefox", NULL);                    //run firefox sesuai perintah
           } else {
             printf("Masukkan aplikasi yang valid: %s\n", argv[i]);  //muncul kesalahan jika aplikasi tidak valid
             exit(1);                                                //exit child process
           }
+             
           perror("execlp"); //jika ada error eksekusi, maka akan muncul pesan
           exit(1);          //exit process karena kesalahan
         } else if (child_pid < 0) {
