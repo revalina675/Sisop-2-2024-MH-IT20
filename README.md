@@ -652,6 +652,12 @@ pada soal ini diminta agar program memiliki fitur untuk menampilkan seluruh pros
               sprintf(process_name, "/proc/%d/cmdline", pid);
               FILE *proc_file = fopen(process_name, "r");
 
+` char log_filename[NAMA_USER + sizeof(LOG_FILE)];` digunakan untuk menggabungkan nama pengguna (username) dan ekstensi log yang didefinisikan sebagai LOG_FILE
+
+`pid_t pid = getpid();` digunakan untuk mendapatkan pid dari aktivitas proses yang berjalan
+
+` FILE *proc_file = fopen(process_name, "r");` digunakan untuk membuka file yang berkaitan dengan proses yang sedang dipantau untuk dibaca
+
 ### soal 3c
 
 pada soal ini diminta untuk menjalankan fitur program ini menggunakan command ./admin -m <user> dan untuk mematikannya menggunakan ./admin -s <user> sekaligus program akan mencatat seluruh proses yang dijalankan oleh user dalam file.log
@@ -672,6 +678,10 @@ fungsi untuk menjalankan program:
         perror("Gagal membuka file log");
         exit(EXIT_FAILURE);
     }
+
+` char log_filename[NAMA_USER + sizeof(LOG_FILE)];` digunakan untuk menggabungkan nama pengguna (username) dan ekstensi log yang didefinisikan sebagai LOG_FILE
+
+`FILE *log_file = fopen(log_filename, "a");` digunakan untuk membuka file log yang kemudian menambahkan data baru
 
 fungsi untuk memnghentikan program:
       
@@ -707,6 +717,9 @@ fungsi untuk memblock aktivitas user:
     }
       ...
 
+` char log_filename[NAMA_USER + sizeof(LOG_FILE)];` digunakan untuk menggabungkan nama pengguna (username) dan ekstensi log yang didefinisikan sebagai LOG_FILE
+
+`FILE *log_file = fopen(log_filename, "a");` digunakan untuk membuka file log yang kemudian menambahkan data baru
 
 fungsi untuk membuka block aktivitas user:
 
@@ -725,7 +738,9 @@ fungsi untuk membuka block aktivitas user:
         exit(EXIT_FAILURE);
     }
 
+` char log_filename[NAMA_USER + sizeof(LOG_FILE)];` digunakan untuk menggabungkan nama pengguna (username) dan ekstensi log yang didefinisikan sebagai LOG_FILE
 
+`FILE *log_file = fopen(log_filename, "a");` digunakan untuk membuka file log yang kemudian menambahkan data baru
 
 ### soal 3e
 
