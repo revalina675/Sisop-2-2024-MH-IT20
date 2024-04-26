@@ -41,7 +41,7 @@ Contoh isi file setelah setelah program dijalankan:
         Pd&f8$F5=E?@#[6jd{TJKj][SPYWARE]{KK1?hz384$ge@iba5GAj$gqB41
         #C&&a}M9C#f64Eb.?%c)dGbCvJXtU[?SE4h]BY4e1P[RANSOMWARE]{]S/{w?*
 
-## ! Penyelesaian !
+## Jawab
 
 ### soal 2a
 
@@ -152,7 +152,7 @@ pada soal ini diminta agar setiap penggantian string yang dilakukan oleh program
 
 `fprintf(log, "%s Suspicious string at %s successfully replaced!\n", timestamp, filename);` digunakan untuk mencetak informasi yang tersimpan dalam file.log berisikan format sesuai yang diminta dalam soal
 
-### Revisi
+## Revisi
 
 pada code di github belum terdapat fungsi untuk menjalankan daemon nya di background setiap 15 detik, sehingga saya memperbaiki kode program ini dengan menambahkan code ini setelah fungsi yang digunakan untuk membuka virus.log
 
@@ -194,7 +194,7 @@ code diatas bertujuan agar jika program dijalankan maka daemon akan terus berjal
 
 gambar stringfile1.txt
 
-### Hasil output
+## Hasil output
 
 gambar
 
