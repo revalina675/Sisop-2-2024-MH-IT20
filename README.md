@@ -515,7 +515,82 @@ int main() {
 
 b. Setelah ditelusuri, ternyata hanya 6 file teratas yang nama filenya tidak dienkripsi. Oleh karena itu, bantulah Paul untuk melakukan dekripsi terhadap nama file ke-7 hingga terakhir menggunakan algoritma ROT19
 
-ROT19 adalah suatu algoritma dimana dia akan melooping huruf yang ada pada nama file sebanyak 19x
+ROT19 adalah suatu algoritma dimana dia akan melooping huruf yang ada pada nama file sebanyak 19x untuk melakukan decrypt file
+
+```
+void rot19_decrypt(char *str) {
+    for (int i = 0; str[i]; i++) {
+        if (str[i] >= 'a' && str[i] <= 'z') {
+            str[i] = (str[i] - 'a' - 19 + 26) % 26 + 'a';
+        } else if (str[i] >= 'A' && str[i] <= 'Z') {
+            str[i] = (str[i] - 'A' - 19 + 26) % 26 + 'A';
+        }
+    }
+}
+```
+
+Berikut adalah implementasi code saya untuk melakukan perintah decrypt dengan algoritma ROT19 sesuai yang diminta pada soal :
+
+```
+void decrypt_file(){
+    pid_t pid = fork();
+
+    if (pid < 0) exit(EXIT_FAILURE);
+
+    else if (pid == 0)
+    {
+        DIR *dir;
+        struct dirent *ent;
+        if ((dir = opendir("/home/revalina/m2s2/library")) != NULL) {
+            while ((ent = readdir(dir)) != NULL) {
+                // Cek apakah file adalah file teratas 6 dan bukan direktori
+                if (ent->d_type == DT_REG && strlen(ent->d_name) > 6) {
+                    char new_name[256];
+                    strcpy(new_name, ent->d_name);
+                    rot19_decrypt(new_name);
+                    printf("Rename %s to %s\n", ent->d_name, new_name);
+                    // Ganti nama file di sini
+                    rename(ent->d_name, new_name);
+                }
+            }
+            closedir(dir);
+        } else {
+            perror("Could not open directory");
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    else
+    {
+        int status;
+        wait(&status);
+    }
+}
+```
+
+setelah meng-save code tersebut, saya kembali pada terminal linux dan mengaktifkan code dengan command 
+
+`gcc -o management management.c`
+
+dan mulai menjalankan program tersebut dengan command 
+
+`./management`
+
+Untuk mengecek, apakah program sudah berjalan secara daemon, saya menggunakan command
+
+`ps aux | grep management`
+
+Pada program tertera seperti ini, yang menandakan bahwa program sudah berjalan secara daemon.
+
+>gambar 1
+
+Lalu, saya masuk ke dalam file manager untuk memeriksa apakah url link yang ditautkan pada soal sudah terinstall dan terunzip. Hasilnya, url tersebut sudah terinstall dan terunzip sesuai yang diinginkan soal
+
+> gambar 2
+
+Namun, saat saya ingin memeriksa apakah file sudah terdecrypt dengan algoritma ROT19, ternyata program masih belum bisa melakukannya. Terbukti pada nama file-file yang ada disini
+
+> gambar 3
 
 
 ## SOAL 3
