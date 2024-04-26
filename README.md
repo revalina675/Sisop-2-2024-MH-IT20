@@ -192,14 +192,15 @@ pada code di github belum terdapat fungsi untuk menjalankan daemon nya di backgr
 
 code diatas bertujuan agar jika program dijalankan maka daemon akan terus berjalan tiap 15 detik di backgroun hal ini dapat dicek dengan membuat stringfile.txt kedua dan string pada file tersebut juga tetap akan ikut diganti seperti tampilan dibawah ini
 
-![gambar cat file.txt daemon jalan](https://github.com/revalina675/Sisop-2-2024-MH-IT20/assets/150933246/d8c4b94c-fbc1-48c8-83d2-a946b98cb2b0)
+gambar stringfile1.txt
 
 ## Hasil output
 
-![gambar ngejalanin](https://github.com/revalina675/Sisop-2-2024-MH-IT20/assets/150933246/6913f98f-30b7-43ef-84af-4bf658f2c5bc)
+gambar
 
-![gambar cat file.txt](https://github.com/revalina675/Sisop-2-2024-MH-IT20/assets/150933246/d88f9fe4-87d5-4804-a277-07f56b6a3409)
+gambar
 
+gambar
 
 `gcc virus.c -o virus` digunakan untuk mengcompiler file virus.c dan menyimpannya ke dalam file virus
 
@@ -580,17 +581,15 @@ Untuk mengecek, apakah program sudah berjalan secara daemon, saya menggunakan co
 `ps aux | grep management`
 
 Pada program tertera seperti ini, yang menandakan bahwa program sudah berjalan secara daemon.
-
->gambar 1
+![WhatsApp Image 2024-04-27 at 12 37 03 AM](https://github.com/revalina675/Sisop-2-2024-MH-IT20/assets/150936800/abdfa829-b14f-48c2-9beb-06c3c414ede4)
 
 Lalu, saya masuk ke dalam file manager untuk memeriksa apakah url link yang ditautkan pada soal sudah terinstall dan terunzip. Hasilnya, url tersebut sudah terinstall dan terunzip sesuai yang diinginkan soal
 
-> gambar 2
+![WhatsApp Image 2024-04-27 at 12 37 37 AM](https://github.com/revalina675/Sisop-2-2024-MH-IT20/assets/150936800/a07d622c-7c98-4ece-aac4-94c51140f9e2)
 
 Namun, saat saya ingin memeriksa apakah file sudah terdecrypt dengan algoritma ROT19, ternyata program masih belum bisa melakukannya. Terbukti pada nama file-file yang ada disini
 
-> gambar 3
-
+![WhatsApp Image 2024-04-27 at 12 37 49 AM](https://github.com/revalina675/Sisop-2-2024-MH-IT20/assets/150936800/6993c3c1-dbfb-433c-90d4-a9d5a0ae553f)
 
 ## SOAL 3
 
@@ -647,5 +646,3 @@ Command ini hanya mematikan aplikasi yang dijalankan dengan
 ./setup -f file.conf
 
 ## Jawab
-
-
