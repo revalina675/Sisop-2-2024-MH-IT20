@@ -43,7 +43,7 @@ Contoh isi file setelah setelah program dijalankan:
 
 ## Jawab
 
-### soal 2a
+### soal 1a
 
 Pada soal ini diminta agar dapat menerima input path berupa ‘argv’ untuk mengatur folder dimana file akan dieksekusi
 
@@ -57,7 +57,7 @@ Pada soal ini diminta agar dapat menerima input path berupa ‘argv’ untuk men
 
 `printf("Usage: %s <path>\n", argv[0]);` digunakan untuk format argumen yang digunakan untuk menjalankan program
 
-### soal 2b
+### soal 1b
 
 pada soal ini diminta agar program berfungsi untuk mereplace string sesuai permintaan 
 
@@ -75,7 +75,7 @@ pada soal ini diminta agar program berfungsi untuk mereplace string sesuai permi
 
 `...log);` digunakan untuk mencatat semua perubahan yang terjadi selama proses (penggantian string) berjalan
 
-### soal 2c 
+### soal 1c 
 
 pada soal ini diminta agar berjalan secara daemon, dan tidak diperbolehkan menggunakan command system() dalam pembuatan program
 
@@ -111,7 +111,7 @@ pada soal ini diminta agar berjalan secara daemon, dan tidak diperbolehkan mengg
 
 `close(STDIN_FILENO);` digunakan untuk menutup standar file deskriptor agar daemon tidak menerima input atau memunculkan output ke terminal
 
-### soal 2d
+### soal 1d
 
 pada soal ini diminta agar program dapat berjalan terus menerus di background dengan jeda 15 detik
 
@@ -130,7 +130,7 @@ pada soal ini diminta agar program dapat berjalan terus menerus di background de
 
 `sleep(15);}` digunakan untuk menidurkan program setelah melakukan iterasi tiap 15 detik
 
-### soal 2e
+### soal 1e
 
 pada soal ini diminta agar setiap penggantian string yang dilakukan oleh program akan disimpan pada file virus.log dengan format: [dd-mm-YYYY][HH:MM:SS] Suspicious string at <file_name> successfully replaced!
 
@@ -615,6 +615,149 @@ sehingga user tidak bisa menjalankan proses yang dia inginkan dengan baik. Fitur
 e. Ketika proses yang dijalankan user digagalkan, program juga akan melog dan menset log tersebut sebagai GAGAL. Dan jika di log menggunakan fitur poin c, log akan ditulis dengan JALAN
 
 ## Jawab
+
+### soal 3a
+
+pada soal ini diminta untuk menamai program dengan nama admin.c
+
+![Screenshot from 2024-04-27 02-37-50](https://github.com/revalina675/Sisop-2-2024-MH-IT20/assets/150933246/2f741481-b1fd-4a56-add8-25986f6ea881)
+
+### soal 3b
+
+pada soal ini diminta agar program memiliki fitur untuk menampilkan seluruh proses yang dilakukan oleh seorang user dengan menggunakan command ./admin <user>
+
+      //fungsi kegiatan yang dilakukan oleh user
+      void aktivitas_user(const char *username) 
+          {
+          // Mendefinisikan nama file log
+          char log_filename[NAMA_USER + sizeof(LOG_FILE)];
+          sprintf(log_filename, "%s%s", username, LOG_FILE);
+          
+          // Membuka file log
+          FILE *log_file = fopen(log_filename, "a");
+          if (log_file == NULL)
+          {
+              perror("Gagal membuka file log");
+              exit(EXIT_FAILURE);
+          }
+      
+          while (1) {
+              // Mendapatkan waktu saat ini
+              time_t raw_time;
+              struct tm *time_info;
+              time(&raw_time);
+              time_info = localtime(&raw_time);
+      
+              // Memantau aktivitas pengguna
+              pid_t pid = getpid();
+              char process_name[256];
+              sprintf(process_name, "/proc/%d/cmdline", pid);
+              FILE *proc_file = fopen(process_name, "r");
+
+### soal 3c
+
+pada soal ini diminta untuk menjalankan fitur program ini menggunakan command ./admin -m <user> dan untuk mematikannya menggunakan ./admin -s <user> sekaligus program akan mencatat seluruh proses yang dijalankan oleh user dalam file.log
+
+fungsi untuk menjalankan program:
+
+    //fungsi kegiatan yang dilakukan oleh user
+    void aktivitas_user(const char *username) 
+    {
+    // Mendefinisikan nama file log
+    char log_filename[NAMA_USER + sizeof(LOG_FILE)];
+    sprintf(log_filename, "%s%s", username, LOG_FILE);
+    
+    // Membuka file log
+    FILE *log_file = fopen(log_filename, "a");
+    if (log_file == NULL)
+    {
+        perror("Gagal membuka file log");
+        exit(EXIT_FAILURE);
+    }
+
+fungsi untuk memnghentikan program:
+      
+      void stop_monitoring(const char *username)
+      {
+          // Menghentikan pemantauan untuk seorang pengguna
+          char log_filename[NAMA_USER + sizeof(LOG_FILE)];
+          sprintf(log_filename, "%s%s", username, LOG_FILE);
+          remove(log_filename);
+      }
+      
+` remove(log_filename);` digunakan untuk menghentikan segala proses dengan menghaouskan semua data pada log_filename
+
+### soal 3d
+
+pada soal ini diminta agar terdapat fitur menggagalkan proses yang dijalankan user setiap detik secara terus menerus dengan menjalankan ./admin -c user dan fitur ini dapat dimatikan dengan menjalankan ./admin -a user
+
+fungsi untuk memblock aktivitas user:
+
+      void block_user_activity(const char *username)
+      {
+          // Memblokir aktivitas pengguna
+          // Implementasi pemblokiran aktivitas pengguna ada di sini
+          
+    // Membuka file log
+    char log_filename[NAMA_USER + sizeof(LOG_FILE)];
+    sprintf(log_filename, "%s%s", username, LOG_FILE);
+    FILE *log_file = fopen(log_filename, "a");
+    if (log_file == NULL)
+    {
+        perror("Gagal membuka file log");
+        exit(EXIT_FAILURE);
+    }
+      ...
+
+
+fungsi untuk membuka block aktivitas user:
+
+      void unblock_user_activity(const char *username)
+      {
+          // Membuka blokir aktivitas pengguna
+          // Implementasi membuka blokir aktivitas pengguna ada di sini
+
+    // Membuka file log
+    char log_filename[NAMA_USER + sizeof(LOG_FILE)];
+    sprintf(log_filename, "%s%s", username, LOG_FILE);
+    FILE *log_file = fopen(log_filename, "a");
+    if (log_file == NULL)
+    {
+        perror("Gagal membuka file log");
+        exit(EXIT_FAILURE);
+    }
+
+
+
+### soal 3e
+
+pada soal bagian ini diminta agar ketika proses yang digagalkan tercetak GAGAL dan jika di log dengan fitur -c akan tercetak JALAN
+
+    if (proc_file != NULL)
+    {
+        fgets(process_name, sizeof(process_name), proc_file);
+        fclose(proc_file);
+        fprintf(log_file, "[%02d:%02d:%04d]-[%02d:%02d:%02d]-%d-%s_GAGAL\n", 
+            time_info->tm_mday, time_info->tm_mon + 1, time_info->tm_year + 1900,
+            time_info->tm_hour, time_info->tm_min, time_info->tm_sec, pid, process_name);
+    }
+
+` fgets(process_name, sizeof(process_name), proc_file);` digunakan untuk membaca satu baris file yang ditunjuk dan kemudian disimpan dalam array process name
+
+`time_info->tm_mday,...` digunakan untuk mencatat waktu ketika menjalankan program
+    
+## HASIL OUTPUT
+
+![Screenshot from 2024-04-27 02-34-57](https://github.com/revalina675/Sisop-2-2024-MH-IT20/assets/150933246/40569c52-5253-4469-ac56-d8aa9b36b5f7)
+
+![Screenshot from 2024-04-27 02-35-17](https://github.com/revalina675/Sisop-2-2024-MH-IT20/assets/150933246/3c60e147-fe60-4a64-bbe5-33bbbdb8ef06)
+
+`gcc admin.c -o admin` digunakan untuk mengcompile file admin.c 
+
+`./admin -m/-s/-c/-a farida` digunakan untuk menjalankan program sesuai dengan fitur yang ingin dijalankan
+
+`cat farida.log` digunakan untuk mencatat kegiatan yang dilakukan oleh user (sesuai dengan format di soal)
+
 
 ## SOAL 4
 
