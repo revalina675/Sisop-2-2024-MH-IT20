@@ -192,15 +192,13 @@ pada code di github belum terdapat fungsi untuk menjalankan daemon nya di backgr
 
 code diatas bertujuan agar jika program dijalankan maka daemon akan terus berjalan tiap 15 detik di backgroun hal ini dapat dicek dengan membuat stringfile.txt kedua dan string pada file tersebut juga tetap akan ikut diganti seperti tampilan dibawah ini
 
-gambar stringfile1.txt
+![gambar cat file.txt daemon jalan](https://github.com/revalina675/Sisop-2-2024-MH-IT20/assets/150933246/d8c4b94c-fbc1-48c8-83d2-a946b98cb2b0)
 
 ## Hasil output
 
-gambar
+![gambar ngejalanin](https://github.com/revalina675/Sisop-2-2024-MH-IT20/assets/150933246/6913f98f-30b7-43ef-84af-4bf658f2c5bc)
 
-gambar
-
-gambar
+![gambar cat file.txt](https://github.com/revalina675/Sisop-2-2024-MH-IT20/assets/150933246/d88f9fe4-87d5-4804-a277-07f56b6a3409)
 
 `gcc virus.c -o virus` digunakan untuk mengcompiler file virus.c dan menyimpannya ke dalam file virus
 
