@@ -803,10 +803,11 @@ Command ini hanya mematikan aplikasi yang dijalankan dengan
 
 ## Jawab
 ### soal 1a
-membuat program dengan nama setup.c
+Membuat program dengan nama setup.c
 `touch setup.c`
 
-masuk ke text editor untuk menambahkan kode ke dalam program tersebut. Code berikut ini akan dapat membuka beberapa aplikasi secara otomatis. Aplikasi yang saya buka adalah libreoffice calc dan firefox.
+### soal 1b
+Masuk ke text editor untuk menambahkan kode ke dalam program tersebut. Code berikut ini akan dapat membuka beberapa aplikasi secara otomatis. Aplikasi yang saya buka adalah libreoffice calc dan firefox.
 
 ```
 #include <stdio.h>
@@ -856,3 +857,7 @@ int main(int argc, char *argv[])
     while (wait(&status) > 0);   //menunggu semua child process selesai
     return 0:
 }
+```
+
+Pada langkah ini, program hanya bisa membuka aplikasi menggunakan command lewat terminal. Berikut ini adalah command untuk membuka aplikasi tersebut
+`./setup.c -o libreoffice 2 firefox 2`
