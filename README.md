@@ -802,3 +802,7 @@ Command ini hanya mematikan aplikasi yang dijalankan dengan
 ./setup -f file.conf
 
 ## Jawab
+###soal 1 a
+membuat program dengan nama setup.c
+`touch setup.c`
+masuk ke text editor untuk menambahkan kode ke dalam program tersebut. Code berikut ini akan dapat membuka beberapa aplikasi secara otomatis. Aplikasi yang saya buka adalah libreoffice calc dan firefox.
