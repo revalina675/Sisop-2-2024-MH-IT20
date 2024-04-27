@@ -985,4 +985,10 @@ Program tidak bisa ditutup menggunakan command tersebut.
 Berikut ini adalah dokumentasi output dari soal nomor 4.
 
 ![326182010-84ec0585-b6f8-4d35-b55a-5cadb2f92a57](https://github.com/revalina675/Sisop-2-2024-MH-IT20/assets/149811596/014a55fe-d8bf-4a1b-85b6-5a3d74dc4cbc)
+Gambar pertama ini adalah hasil output saat saat menjalankan command seperti pada nomor 4b
 
+![326182015-cf57e2f6-ad9a-4d9e-b005-15c0a6229dda](https://github.com/revalina675/Sisop-2-2024-MH-IT20/assets/149811596/61c1e15d-e96f-4e80-b1f1-577bf01e444e)
+Gambar kedua adalah output pada terminal saat saya mencoba membuka aplikasi pada nomor 4b. Tetapi aplikasi tetap terbuka dengan lancar.
+
+![326182016-e5dc3e33-6530-4571-a82c-44b50f65aa4f](https://github.com/revalina675/Sisop-2-2024-MH-IT20/assets/149811596/7d10b278-7b76-414b-af98-cac459d18eb9)
+Gambar terakhir adalah output saat saya mencoba menjalankan aplikasi dengan file konfigurasi dan melakukan close aplikasi yang berjalan.
