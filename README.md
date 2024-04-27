@@ -963,7 +963,7 @@ return;
 ```
 Saat saya mencoba membuka aplikasi menggunakan file configurasi dengan command,
 ```
-./setup -f file.com
+./setup -f file.conf
 ```
 file tersebut tidak berjalan dan output pada terminal linux adalah
 ```
