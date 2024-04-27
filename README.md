@@ -866,3 +866,17 @@ Pada langkah ini, program hanya bisa membuka aplikasi menggunakan command lewat 
 ./setup -o libreoffice 2 firefox 2
 ```
 Namun terdapat kendala yang saya alami pada code ini. Ketika saya bermaksud membuka libreoffice dan firefox masing masing sebanyak 2 window, output dari program ini justru membuka libreoffice sebanyak 4 window. Saya mencoba membuka firefox secara manual untuk memastikan bahwa aplikasi bisa dibuka lewat terminal dengan command `firefox` dan berhasil membuka firefox tersebut. Tetapi ketika saya mencoba membuka firefox lewat program `setup.c` tersebut tidak berhasil membukanya.
+
+*** soal 1c
+Membuka aplikasi dengan file konfigurasi.
+Pertama, saya membuat file konfigurasi sesuai dengan ketentuan.
+```
+nano file.conf
+```
+
+Saya mengisi file konfigurasi seperti berikut ini dengan tujuan dapat membuka libreoffice dan firefox masing masing sebanyak 2 window
+```
+LibreOffice Calc 2
+Firefox 2
+```
+
