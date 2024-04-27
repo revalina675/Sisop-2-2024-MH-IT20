@@ -1,4 +1,4 @@
-# PRAKTIKUM MODUL 02 SISTEM OPERASI
+![326182010-84ec0585-b6f8-4d35-b55a-5cadb2f92a57](https://github.com/revalina675/Sisop-2-2024-MH-IT20/assets/149811596/027bf058-eba1-4392-907c-810a90c370ee)# PRAKTIKUM MODUL 02 SISTEM OPERASI
 ## Kelompok IT20
 ### Anggota Kelompok :
 |             Nama              |     NRP    |
@@ -984,4 +984,5 @@ command berikut untuk close aplikasi yang dibuka dari file configurasi
 Program tidak bisa ditutup menggunakan command tersebut.
 Berikut ini adalah dokumentasi output dari soal nomor 4.
 
-![Menjalankan aplikasi](https://private-user-images.githubusercontent.com/149811596/326182010-84ec0585-b6f8-4d35-b55a-5cadb2f92a57.png)
+![326182010-84ec0585-b6f8-4d35-b55a-5cadb2f92a57](https://github.com/revalina675/Sisop-2-2024-MH-IT20/assets/149811596/014a55fe-d8bf-4a1b-85b6-5a3d74dc4cbc)
+
