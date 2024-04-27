@@ -802,11 +802,13 @@ Command ini hanya mematikan aplikasi yang dijalankan dengan
 ./setup -f file.conf
 
 ## Jawab
-###soal 1 a
+### soal 1a
 membuat program dengan nama setup.c
 `touch setup.c`
+
 masuk ke text editor untuk menambahkan kode ke dalam program tersebut. Code berikut ini akan dapat membuka beberapa aplikasi secara otomatis. Aplikasi yang saya buka adalah libreoffice calc dan firefox.
 
+```
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -853,4 +855,4 @@ int main(int argc, char *argv[])
     }
     while (wait(&status) > 0);   //menunggu semua child process selesai
     return 0:
-}`
+}
