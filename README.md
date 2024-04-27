@@ -860,4 +860,6 @@ int main(int argc, char *argv[])
 ```
 
 Pada langkah ini, program hanya bisa membuka aplikasi menggunakan command lewat terminal. Berikut ini adalah command untuk membuka aplikasi tersebut
+```
 `./setup.c -o libreoffice 2 firefox 2`
+```
