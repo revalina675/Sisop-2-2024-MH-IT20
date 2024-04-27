@@ -1,4 +1,4 @@
-![326182010-84ec0585-b6f8-4d35-b55a-5cadb2f92a57](https://github.com/revalina675/Sisop-2-2024-MH-IT20/assets/149811596/027bf058-eba1-4392-907c-810a90c370ee)# PRAKTIKUM MODUL 02 SISTEM OPERASI
+# PRAKTIKUM MODUL 02 SISTEM OPERASI
 ## Kelompok IT20
 ### Anggota Kelompok :
 |             Nama              |     NRP    |
