@@ -804,7 +804,9 @@ Command ini hanya mematikan aplikasi yang dijalankan dengan
 ## Jawab
 ### soal 1a
 Membuat program dengan nama setup.c
-`touch setup.c`
+```
+touch setup.c
+```
 
 ### soal 1b
 Masuk ke text editor untuk menambahkan kode ke dalam program tersebut. Code berikut ini akan dapat membuka beberapa aplikasi secara otomatis. Aplikasi yang saya buka adalah libreoffice calc dan firefox.
@@ -861,5 +863,6 @@ int main(int argc, char *argv[])
 
 Pada langkah ini, program hanya bisa membuka aplikasi menggunakan command lewat terminal. Berikut ini adalah command untuk membuka aplikasi tersebut
 ```
-`./setup.c -o libreoffice 2 firefox 2`
+./setup.c -o libreoffice 2 firefox 2
 ```
+Namun terdapat kendala yang saya alami pada code ini. Ketika saya bermaksud membuka libreoffice dan firefox masing masing sebanyak 2 window, output dari program ini justru membuka libreoffice sebanyak 4 window. Saya mencoba membuka firefox secara manual untuk memastikan bahwa aplikasi bisa dibuka lewat terminal dengan command `firefox` dan berhasil membuka firefox tersebut. Tetapi ketika saya mencoba membuka firefox lewat program `setup.c` tersebut tidak berhasil membukanya.
