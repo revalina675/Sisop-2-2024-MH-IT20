@@ -909,13 +909,15 @@ int main(int argc, char *argv[])
 //perubahan code untuk membaca file konfigurasi
 
      FILE *file = fopen(argv[2], "r");     //program akan membuka file konfigurasi
-     if (file == NULL) {
+     if (file == NULL)
+     {
          perror("fopen");      //cek kondisi apakah file konfigurasi bisa dibuka
          return 1;
      }
      char buffer[255];     //membuat buffer untuk menyimpan setiap command line yang ada pada file konfigurasi
 //melakukan looping pada command line file configurasi
-     while (fgets(buffer, sizeof(buffer), file)) {
+     while (fgets(buffer, sizeof(buffer), file))
+     {
      char *token = strtok(buffer, " ");
      char *app_name = token;
      token = strtok(NULL, " " );        //buat token lagi untuk mendapat jumlah window
