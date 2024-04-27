@@ -966,9 +966,9 @@ Saat saya mencoba membuka aplikasi menggunakan file configurasi dengan command,
 ./setup -f file.conf
 ```
 file tersebut tidak berjalan dan output pada terminal linux adalah
-```
-Perintah tidak valid. Gunakan -o untuk menentukan aplikasi dan jumlah window.
-```
+
+`Perintah tidak valid. Gunakan -o untuk menentukan aplikasi dan jumlah window.`
+
 
 Lalu saya mencoba untuk close aplikasi yang sudah terbuka tersebut dengan command sesuai perintah soal
 ```
