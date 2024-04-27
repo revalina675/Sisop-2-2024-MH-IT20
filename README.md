@@ -802,13 +802,13 @@ Command ini hanya mematikan aplikasi yang dijalankan dengan
 ./setup -f file.conf
 
 ## Jawab
-### soal 1a
+### soal 4a
 Membuat program dengan nama setup.c
 ```
 touch setup.c
 ```
 
-### soal 1b
+### soal 4b
 Masuk ke text editor untuk menambahkan kode ke dalam program tersebut. Code berikut ini akan dapat membuka beberapa aplikasi secara otomatis. Aplikasi yang saya buka adalah libreoffice calc dan firefox.
 
 ```
@@ -867,7 +867,7 @@ Pada langkah ini, program hanya bisa membuka aplikasi menggunakan command lewat 
 ```
 Namun terdapat kendala yang saya alami pada code ini. Ketika saya bermaksud membuka libreoffice dan firefox masing masing sebanyak 2 window, output dari program ini justru membuka libreoffice sebanyak 4 window. Saya mencoba membuka firefox secara manual untuk memastikan bahwa aplikasi bisa dibuka lewat terminal dengan command `firefox` dan berhasil membuka firefox tersebut. Tetapi ketika saya mencoba membuka firefox lewat program `setup.c` tersebut tidak berhasil membukanya.
 
-*** soal 1c
+*** soal 4c
 Membuka aplikasi dengan file konfigurasi.
 Pertama, saya membuat file konfigurasi sesuai dengan ketentuan.
 ```
@@ -880,3 +880,103 @@ LibreOffice Calc 2
 Firefox 2
 ```
 
+Agar program `setup.c` dapat membaca file konfigurasi, saya melakukan sedikit perubahan pada file setup tersebut. Berikut ini adalah perubahannya.
+```
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <fcntl.h>      //library untuk membaca file konfigurasi
+
+int main(int argc, char *argv[])
+     {
+      pid_t child_pid;              //variabel untuk save child PID
+      int status;                   //variabel untuk save status child
+
+     if (argc < 2)                  //cek kondisi jumlah argumen
+     {
+       printf("Usage: %s -o <app1> <num1> <app2> <num2> ... <appN> <numN>\n", argv[0]);
+       return 1;
+     }
+
+     if (strcmp(argv[1], "-o") != 0) {      //cek kondisi apakah argumen pertama merupakan "-o"
+       printf("Perintah tidak valid. Gunakan -o untuk menentukan aplikasi dan jumlah window.\n");
+       return 1;                            //print tanda kesalahan jika tidak sesuai
+     }
+
+//perubahan code untuk membaca file konfigurasi
+//perubahan code untuk membaca file konfigurasi
+
+     FILE *file = fopen(argv[2], "r");     //program akan membuka file konfigurasi
+     if (file == NULL) {
+         perror("fopen");      //cek kondisi apakah file konfigurasi bisa dibuka
+         return 1;
+     }
+     char buffer[255];     //membuat buffer untuk menyimpan setiap command line yang ada pada file konfigurasi
+//melakukan looping pada command line file configurasi
+     while (fgets(buffer, sizeof(buffer), file)) {
+     char *token = strtok(buffer, " ");
+     char *app_name = token;
+     token = strtok(NULL, " " );        //buat token lagi untuk mendapat jumlah window
+     int num_windows = atoi(token);      //mengubah string dalam bentuk integer
+
+     for (int i = 2; i < argc; i += 2) {    //dilakukan looping untuk aplikasi dan jumlah window
+       int num_windows = atoi(argv[i + 1]);  //convert jumlah window menjadi integer
+       for (int j = 0; j < num_windows; j++) {  //looping sebanyak window yang diinput
+        child_pid = fork();                     //buat fork untuk child process
+        if (child_pid == 0) {                   //cek kondisi jika berada pada child process
+          if (strcmp(argv[i], "libreoffice") == 0) {   //pastikan aplikasi adalah libreoffice
+            execlp("libreoffice", "libreoffice", "--calc", NULL);  //run libreoffice calc
+          } else if (strcmp(argv[i], "firefox") == 0) {            //pastikan aplikasi merupakan firefox
+            execlp("firefox", "firefox", NULL);                    //run firefox
+          } else {
+            printf("Masukkan aplikasi yang valid: %s\n", argv[i]);  //muncul kesalahan jika aplikasi tidak valid
+            exit(1);                                                //exit child process
+          }
+          perror("execlp"); //jika ada error eksekusi, maka akan muncul pesan
+          exit(1);          //exit process karena kesalahan
+        } else if (child_pid < 0) {
+           perror("fork");  //print eror karena gagal menjalankan fork
+        }
+      }
+    }
+    while (wait(&status) > 0);   //menunggu semua child process selesai
+    return 0:
+}
+for (int i = 0; i < num_windows; i++) {
+            child_pid = fork();          //membuat fork untuk membuat child process
+            if (child_pid == 0) {       //jika berada di dalam child process
+                //eksekusi sesuai file konfigurasi
+                execlp(app_name, app_name, NULL);
+                perror("execlp");        //pesan error akan ditampilkan jika eksekusi gagal
+                exit(1);                //keluar dari child process jika ada kesalahan
+            } else if (child_pid < 0) {
+                perror("fork");         //pesan error akan ditampilkan jika fork gagal
+            }
+        }
+    }
+
+    fclose(file);               //file konfigurasi akan ditutup setelah dibaca
+while (wait(&status) > 0);      //program menunggu child proses selesai
+return;
+```
+Saat saya mencoba membuka aplikasi menggunakan file configurasi dengan command,
+```
+./setup -f file.com
+```
+file tersebut tidak berjalan dan output pada terminal linux adalah
+```
+Perintah tidak valid. Gunakan -o untuk menentukan aplikasi dan jumlah window.
+```
+
+Lalu saya mencoba untuk close aplikasi yang sudah terbuka tersebut dengan command sesuai perintah soal
+```
+./setup -k
+```
+command berikut untuk close aplikasi yang dibuka dari file configurasi
+```
+./setup -k file.conf
+```
+Program tidak bisa ditutup menggunakan command tersebut.
+Berikut ini adalah dokumentasi output dari soal nomor 4.
